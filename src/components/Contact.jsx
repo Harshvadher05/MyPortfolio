@@ -1,14 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
+import emailjs from "emailjs-com";
 
 export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const name = e.target.name.value;
-    const email = e.target.email.value;
-    const message = e.target.message.value;
+    emailjs.send(
+      "service_rvfjns7", // service id
+      "template_8pldzqp", // template id
+      {
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+      },
+      "zklwfS9276jfjauWf" // public key
+    ).then(
+      (result) => {
+        alert("Message sent successfully ✅");
+      },
+      (error) => {
+        alert("Failed to send message ❌");
+      }
+    );
 
-    window.location.href = `mailto:harshvadher4115@gmail.com?subject=Portfolio Contact from ${name}&body=Name: ${name}%0AEmail: ${email}%0AMessage: ${message}`;
+    // const name = e.target.name.value;
+    // const email = e.target.email.value;
+    // const message = e.target.message.value;
+
+    // window.location.href = `mailto:harshvadher4115@gmail.com?subject=Portfolio Contact from ${name}&body=Name: ${name}%0AEmail: ${email}%0AMessage: ${message}`;
   };
 
   return (
@@ -23,6 +52,7 @@ export default function Contact() {
             type="text"
             name="name"
             placeholder="Your Name"
+            onChange={handleChange}
             className="w-full px-4 py-3 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
@@ -30,12 +60,14 @@ export default function Contact() {
             type="email"
             name="email"
             placeholder="Your Email"
+            onChange={handleChange}
             className="w-full px-4 py-3 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
           <textarea
             name="message"
             placeholder="Your Message"
+            onChange={handleChange}
             rows="4"
             className="w-full px-4 py-3 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
