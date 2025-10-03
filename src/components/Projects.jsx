@@ -48,6 +48,15 @@ export default function Projects() {
       ],
       link: "https://ai-voice-analyzer.vercel.app/",
     },
+    {
+      title: "double Slash Chrome Extention",
+      desc: [
+        "Chrome extension to turn //queries into instant search results inside text fields.",
+        "Lightweight, fast, and works across all websites without extra UI.",
+        "Fetches answers using DuckDuckGo and Wikipedia in real time.",
+      ],
+      link: "https://github.com/Harshvadher05/double-Slash",
+    },
   ];
 
   return (
